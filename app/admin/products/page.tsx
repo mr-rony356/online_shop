@@ -23,6 +23,7 @@ import {
   DeleteDropdownItem,
 } from "./_components/ProductActions";
 import PageHeader from "../_components/PageHeader";
+import Image from "next/image";
 
 export default function AdminProductsPage() {
   return (
@@ -87,7 +88,7 @@ async function ProductsTable() {
             <TableCell>
               <div className="flex items-center gap-2">
                 <span>
-                  <img src={product.imagePath} alt="product image" style={{width:30}} />
+                  <Image src={product.imagePath} alt="product image" style={{width:30}} />
                 </span>
                 {product.name}
 
