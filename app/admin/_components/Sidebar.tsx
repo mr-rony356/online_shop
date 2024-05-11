@@ -4,11 +4,12 @@ import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import SidebarLinks from "@/app/admin/_components/SideNavLinks";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { CiLogout } from "react-icons/ci";
+import Image from "next/image";
 const Sidebar = () => {
   return (
     <div className="p-4 w-1/5 border-r border-gray h-screen flex-shrink-0 fixed top-0 flex-1">
       <div className="logo p-2">
-        <img
+        <Image
           src="/logo.png"
           alt="admin logo"
           style={{ width: "40px", filter: "invert(100%)" }}

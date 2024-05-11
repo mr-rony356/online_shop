@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface MainCardProps {
   icon: string;
   title: string;
@@ -16,7 +18,7 @@ const MainCard: React.FC<MainCardProps> = ({
       <h2 className="text-2xl font-bold mb-4">{title}</h2>
       <div className="flex items-center gap-6">
         <div className="mr-4">
-          <img src={icon} alt="card icon" className="w-12 h-12" />
+          <Image src={icon} alt="card icon" className="w-12 h-12" />
         </div>
 
         <div>
