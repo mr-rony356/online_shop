@@ -88,9 +88,11 @@ async function ProductsTable() {
             <TableCell>
               <div className="flex items-center gap-2">
                 <span>
-                  <Image src={product.imagePath} alt="product image" style={{width:30}} />
+                  <Image src={product.imagePath} alt="product image" width='30' height={30} style={{width:30}} />
                 </span>
-                {product.name}
+               <a 
+               href={`/admin/products/details/${product.id}`}>
+                    {product.name}</a> 
 
               </div>
             </TableCell>

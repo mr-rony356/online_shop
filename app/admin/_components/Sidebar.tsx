@@ -11,7 +11,7 @@ const Sidebar = () => {
       <div className="logo p-2">
         <Image
           src="/logo.png"
-          alt="admin logo"
+          alt="admin logo"width="40" height={"40"}
           style={{ width: "40px", filter: "invert(100%)" }}
         />
       </div>
