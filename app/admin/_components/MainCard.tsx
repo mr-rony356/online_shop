@@ -18,7 +18,7 @@ const MainCard: React.FC<MainCardProps> = ({
       <h2 className="text-2xl font-bold mb-4">{title}</h2>
       <div className="flex items-center gap-6">
         <div className="mr-4">
-          <Image src={icon} alt="card icon" className="w-12 h-12" />
+          <Image src={icon} alt="card icon" className="w-12 h-12" width={100} height={100} />
         </div>
 
         <div>

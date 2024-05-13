@@ -51,7 +51,6 @@ async function ProductsTable() {
     },
     orderBy: { name: "asc" },
   });
-
   if (products.length === 0) return <p>No products found</p>;
 
   return (
@@ -90,14 +89,15 @@ async function ProductsTable() {
                 <span>
                   <Image src={product.imagePath} alt="product image" width='30' height={30} style={{width:30}} />
                 </span>
-               <a 
-               href={`/admin/products/details/${product.id}`}>
-                    {product.name}</a> 
-
+                <a href={`/admin/products/details/${product.id}`}>
+                  {product.name}
+                </a>
               </div>
             </TableCell>
             <TableCell>{formatCurrency(product.priceInCents / 100)}</TableCell>
-            <TableCell className="pl-2 md:pl-6">{formatNumber(product._count.orders)}</TableCell>
+            <TableCell className="pl-2 md:pl-6">
+              {formatNumber(product._count.orders)}
+            </TableCell>
             <TableCell>
               <DropdownMenu>
                 <DropdownMenuTrigger>
