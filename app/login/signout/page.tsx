@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
@@ -7,7 +7,7 @@ export default function SignOutPage() {
 
   const handleSignOut = async () => {
     await signOut({ redirect: false });
-    router.push("/admin-login");
+    router.push("/login");
   };
 
   handleSignOut();

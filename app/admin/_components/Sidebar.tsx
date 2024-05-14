@@ -4,16 +4,12 @@ import { MdOutlineProductionQuantityLimits } from "react-icons/md";
 import SidebarLinks from "@/app/admin/_components/SideNavLinks";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { CiLogout } from "react-icons/ci";
-import Image from "next/image";
+import Logo from "@/components/ui/Logo";
 const Sidebar = () => {
   return (
     <div className="p-4 w-1/5 border-r border-gray h-screen flex-shrink-0 fixed top-0 flex-1">
-      <div className="logo p-2">
-        <Image
-          src="/logo.png"
-          alt="admin logo"width="40" height={"40"}
-          style={{ width: "40px", filter: "invert(100%)" }}
-        />
+      <div className="logo p-2 inline-block">
+        <Logo />
       </div>
       <SidebarProfile />
       <SidebarLinks icon={<RxDashboard />} title="Dashboard" href="/admin" />
@@ -40,7 +36,7 @@ export const SidebarProfile = () => {
         /> */}
         <FaRegCircleUser size={30} />
 
-        <p>Omor Faruk</p>
+        <p>Omor Faruk Rony</p>
       </div>
     </div>
   );

@@ -33,7 +33,7 @@ export const options: NextAuthOptions = {
         })
     ],
     pages: {
-        signIn: '/admin-login',
-        signOut: '/admin-signout',
+        signIn: '/login',
+        signOut: '/login/signout',
     }
 }

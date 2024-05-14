@@ -1,11 +1,11 @@
-import Image from "next/image";
 import Link from "next/link";
+import SpecialProductCarousel from "./components/SpecialProducts";
 
 export default function Home() {
   return (
     <main>
-      <h1>Hi there</h1>
-      <Link href="/admin">Go to admin</Link>
+      <SpecialProductCarousel/>
+
     </main>
   );
 }
