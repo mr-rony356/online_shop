@@ -2,8 +2,7 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
-import Nike from  "/nike.png";
-
+import Nike from "/nike.png";
 
 interface Slide {
   id: number;
@@ -57,40 +56,46 @@ const SpecialProductCarousel = () => {
   useEffect(() => {
     const slideInterval = setInterval(() => {
       nextSlide();
-    }, 2000);
+    }, 5000);
 
     return () => clearInterval(slideInterval);
   }, [nextSlide]);
 
   return (
-    <div className="relative w-full max-w-4xl mx-auto rounded-xl overflow-hidden mt-10 ">
-      <div className="relative w-full min-h-[50vh] md:min-h-[60vh] max-h-full overflow-hidden">
+    <div className="relative w-full  rounded-xl overflow-hidden mt-10">
+      <div className="relative w-full min-h-[68vh] md:min-h-[60vh]  max-h-full overflow-hidden">
         {slides.map((slide, index) => (
           <div
             key={slide.id}
-            className={`absolute top-0 left-0 w-full h-full opacity-0 transition-opacity duration-1000 ${
+            className={`absolute top-0 left-0 w-full h-full transition-opacity duration-1000 ${
               index === currentSlide ? "opacity-100" : "opacity-0"
             }`}
           >
-            <div className="flex  items-center justify-center  gap-0 p-2  h-full w-full shadow-inner bg-gray-500 bg-opacity-20">
-              <div className="flex flex-col items-start  justify-start space-y-4 flex-1 pl-6">
-                <p className="text-sm md:text-lg bg-orange-400 px-2 rounded-lg">
+            <div className="flex items-center justify-center flex-col md:flex-row p-4 h-full w-full shadow-inner bg-gray-500 bg-opacity-20">
+              <div className="flex flex-col items-start justify-start space-y-4 flex-1 pl-6">
+                <p className="ext-sm md:text-lg  bg-orange-400 px-2 rounded-lg">
                   {slide.discount}
                 </p>
 
-                <h3 className="text-xl md:text-3xl font-bold">{slide.name}</h3>
-                <p className="text-sm">{slide.description}</p>
-                <br />
-                <Button className="md:w-1/2 ">Shop Now</Button>
+                <h3 className="text-2xl md:text-3xl  font-bold">
+                  {slide.name}
+                </h3>
+                <p className="text-base lg:text-lg">
+                  {slide.description}
+                </p>
+                <Button className="p-6 text-lg !mt-5">
+                  Shop Now
+                </Button>
               </div>
-              <Image
-                className="rounded-xl flex-1"
-                src={slide.image}
-                alt={slide.name}
-                objectFit="fill"
-                width={200}
-                height={400}
-                         />
+              <div className="flex-1">
+                <Image
+                  className="rounded-xl"
+                  src={slide.image}
+                  alt={slide.name}
+                  width={800}
+                  height={800}
+                />
+              </div>
             </div>
           </div>
         ))}

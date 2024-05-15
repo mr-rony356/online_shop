@@ -88,3 +88,13 @@
 .animate-dropdown {
   animation: dropdown 0.3s ease-in-out;
 }
+.animate-search {
+  animation: dropdown 0.3s ease-in-out;
+}
+.search.active\:outline-none:active {
+  outline: 0px solid transparent !important;
+  outline-offset: 0px !important;
+}
+.search.focus-visible\:ring-offset-2:focus-visible {
+  --tw-ring-offset-width: -3px;
+}

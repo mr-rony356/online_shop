@@ -20,12 +20,12 @@ export default function RootLayout({
     <html lang="en">
       <body
         className={cn(
-          "min-h-screen bg-background font-sans antialiased flex flex-col",
+          "min-h-screen mx-3 !md:mx-0 md:container bg-background font-sans antialiased ",
           inter.variable
         )}
       >
         <Header />
-        <main className="m-2">{children}</main>
+        <main className="">{children}</main>
       </body>
     </html>
   );
