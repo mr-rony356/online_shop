@@ -62,8 +62,8 @@ const SpecialProductCarousel = () => {
   }, [nextSlide]);
 
   return (
-    <div className="relative w-full  rounded-xl overflow-hidden mt-10">
-      <div className="relative w-full min-h-[68vh] md:min-h-[60vh]  max-h-full overflow-hidden">
+    <div className="mt-8 mx-auto w-full max-w-4xl overflow-hidden relative">
+      <div className="relative rounded-xl w-full min-h-[68vh] md:min-h-[50vh]  max-h-full overflow-hidden">
         {slides.map((slide, index) => (
           <div
             key={slide.id}
@@ -71,7 +71,7 @@ const SpecialProductCarousel = () => {
               index === currentSlide ? "opacity-100" : "opacity-0"
             }`}
           >
-            <div className="flex items-center justify-center flex-col md:flex-row p-4 h-full w-full shadow-inner bg-gray-500 bg-opacity-20">
+            <div className="flex items-center justify-center flex-col md:flex-row p-4 h-full w-full shadow-black  bg-zinc-300 bg-opacity-20">
               <div className="flex flex-col items-start justify-start space-y-4 flex-1 pl-6">
                 <p className="ext-sm md:text-lg  bg-orange-400 px-2 rounded-lg">
                   {slide.discount}

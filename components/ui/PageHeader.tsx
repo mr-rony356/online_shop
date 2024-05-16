@@ -8,7 +8,7 @@ interface PageHeaderProps {
 const PageHeader: React.FC<PageHeaderProps> = ({ title, subtitle }) => {
   return (
     <div className="page-header">
-      <h1 className="text-3xl font-bold">{title}</h1>
+      <h1 className="text-2xl md:text-3xl font-bold">{title}</h1>
       {subtitle && <p>{subtitle}</p>}
     </div>
   );

@@ -1,5 +1,5 @@
 import React from "react";
-import PageHeader from "../../_components/PageHeader";
+import PageHeader from "../../../../components/ui/PageHeader";
 import { ProductForm } from "../_components/ProductForm";
 
 const NewProduct = () => {
@@ -7,7 +7,6 @@ const NewProduct = () => {
     <div>
       <PageHeader title="Add New Product" />
       <ProductForm></ProductForm>
-
     </div>
   );
 };

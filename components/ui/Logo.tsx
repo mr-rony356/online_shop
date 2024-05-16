@@ -10,8 +10,8 @@ const Logo = () => {
       alt="admin logo"width="40" height={"40"}
       style={{ width: "40px", filter: "invert(100%)" }}
     />
-    <span  className="text-2xl font-bold letter-spacing-wide">
-      Dev
+    <span  className=" text-xl md:text-3xl font-bold letter-spacing-wide">
+      Rony
     </span>
    </Link >
 )

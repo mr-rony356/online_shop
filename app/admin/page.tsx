@@ -1,7 +1,7 @@
 import db from "@/db/db";
 import MainCard from "./_components/MainCard";
 import { formatCurrency, formatNumber } from "@/lib/formatters";
-import PageHeader from "./_components/PageHeader";
+import PageHeader from "../../components/ui/PageHeader";
 
 async function getSalesData() {
   const data = await db.order.aggregate({
@@ -47,7 +47,7 @@ export default async function Admin() {
   ]);
   return (
     <>
-      <PageHeader title="Dashboard"  />
+      <PageHeader title="Dashboard" />
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  gap-4 my-6">
         <MainCard
           icon="/sales.png"

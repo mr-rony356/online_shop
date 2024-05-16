@@ -9,7 +9,8 @@ import { FaClipboardList, FaCog } from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
 
 const Header: React.FC = () => {
-  const [showProfileDropdown, setShowProfileDropdown] = useState<boolean>(false);
+  const [showProfileDropdown, setShowProfileDropdown] =
+    useState<boolean>(false);
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
@@ -50,32 +51,37 @@ const Header: React.FC = () => {
 
       <div className="flex justify-center items-center md:w-1/2 w-full relative">
         <div className="md:hidden absolute left-3/4 top-1/2 -translate-y-1/2">
-          <FiSearch className="text-xl text-gray-500" onClick={toggleSearch} />
+          <FiSearch className="text-xl text-gray-800" onClick={toggleSearch} />
         </div>
       </div>
-      <div ref={searchRef} className={`md:block ${showSearch ? 'block' : 'hidden'} animate-search backdrop-blur-3xl backdrop-filter animate-duration absolute md:static top-0 left-0 !w-full py-4 h-full z-50 bg-white bg-opacity-75`}>
+      <div
+        ref={searchRef}
+        className={`md:block ${
+          showSearch ? "block" : "hidden"
+        } animate-search backdrop-blur-3xl backdrop-filter  animate-duration absolute md:static top-0  left-0 !w-full py-4 md:py-0 h-full z-50 bg-white md:bg-transparent  bg-opacity-95`}
+      >
         <Input
           placeholder="Search..."
-          className="!w-full search h-full pl-8 border-none outline-none focus:outline-none bg-transparent active:outline-none focus-within:outline-none backdrop-blur-3xl  backdrop-filter"
+          className="!w-full search h-full pl-8 border-none bg-transparent outline-none focus:outline-none  active:outline-none focus-within:outline-none"
         />
-        <FiSearch className="text-lg ml-2 text-gray-800 absolute left-0 top-1/2 -translate-y-1/2 backdrop-blur-sm bg-opacity-75 backdrop-filter " />
+        <FiSearch className="text-lg ml-2 text-gray-800 absolute left-0 top-1/2 -translate-y-1/2 " />
 
-          <Button onClick={toggleSearch} className="md:hidden absolute right-4 top-1/2 -translate-y-1/2 backdrop-blur-sm bg-opacity-75 backdrop-filter">
-            Search
-          </Button>
-        </div>
+        <Button
+          size="sm"
+          onClick={toggleSearch}
+          className="md:hidden absolute right-4 top-1/2 -translate-y-1/2 text-xs"
+        >
+          Search
+        </Button>
+      </div>
 
       <div className="flex items-center space-x-4">
-        <Link href="#" className="text-gray-500">
-          <FiHeart className="text-2xl" />
-        </Link>
-        <Link href="#" className="text-gray-500">
-          <FiShoppingCart className="text-2xl" />
-        </Link>
+        <NavIconLinks icon={<FiHeart className="text-2xl" />} url="#" />
+        <NavIconLinks icon={<FiShoppingCart className="text-2xl" />} url="#" />
         <div className="relative" ref={dropdownRef}>
           <button
             onClick={toggleProfileDropdown}
-            className="text-gray-500 focus:outline-none"
+            className="text-gray-700 focus:outline-none"
           >
             <FiUser
               className={`text-2xl ${
@@ -84,46 +90,54 @@ const Header: React.FC = () => {
             />
           </button>
           {showProfileDropdown && (
-            <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg z-10 transition-all duration-300 ease-in-out transform origin-top-right animate-dropdown">
+            <div className="absolute right-0 mt-2 w-36 md:w-40 bg-white rounded-md shadow-lg z-10 transition-all duration-300 ease-in-out transform origin-top-right animate-dropdown">
               <div className="py-1">
-                <Link
-                  href="#"
-                  className=" px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex items-center"
-                >
-                  <FaClipboardList className="mr-2" />
-                  Orders
-                </Link>
-                <Link
-                  href="#"
-                  className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex items-center"
-                >
-                  <FiUser className="mr-2" />
-                  Profile
-                </Link>
-                <Link
-                  href="#"
-                  className=" px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex items-center"
-                >
-                  <FaCog className="mr-2" />
-                  Settings
-                </Link>
-                <Link
-                  href="#"
-                  className=" px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex items-center"
-                >
-                  <CiLogout className="mr-2" />
-                  Log out
-                </Link>
+                <ProfileIconLinks
+                  icon={<FaClipboardList className="mr-2" />}
+                  url="#"
+                  name="Orders"
+                />
+                <ProfileIconLinks
+                  icon={<FiUser className="mr-2" />}
+                  url="#"
+                  name="Profile"
+                />
+                <ProfileIconLinks
+                  icon={<FaCog className="mr-2" />}
+                  url="#"
+                  name="Settings"
+                />
+
+                <ProfileIconLinks
+                  icon={<CiLogout className="mr-2" />}
+                  url="#"
+                  name="Logout"
+                />
               </div>
             </div>
           )}
         </div>
-        {/* <Link href="/admin" className="text-gray-500">
-          <Button className="w-full"> Admin</Button>
-        </Link> */}
       </div>
     </header>
   );
 };
-
+interface IconProps {
+  icon: React.ReactNode;
+  url: string;
+  name?: string;
+}
+const NavIconLinks: React.FC<IconProps> = ({ icon, url }) => (
+  <Link href={url} className="text-gray-700">
+    {icon}
+  </Link>
+);
+const ProfileIconLinks: React.FC<IconProps> = ({ icon, url, name }) => (
+  <Link
+    href={url}
+    className=" px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex items-center"
+  >
+    {icon}
+    {name && <span className=" text-sm md:text-base">{name}</span>}
+  </Link>
+);
 export default Header;
