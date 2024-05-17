@@ -62,7 +62,7 @@ const SpecialProductCarousel = () => {
   }, [nextSlide]);
 
   return (
-    <div className="mt-8 mx-auto w-full max-w-4xl overflow-hidden relative">
+    <div className="mx-auto w-full max-w-4xl overflow-hidden relative">
       <div className="relative rounded-xl w-full min-h-[68vh] md:min-h-[50vh]  max-h-full overflow-hidden">
         {slides.map((slide, index) => (
           <div

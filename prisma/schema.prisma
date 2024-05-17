@@ -16,6 +16,7 @@ model Product {
   id                     String                 @id @default(uuid())
   name                   String
   priceInCents           Int
+  carts                  Cart[]
   filePath               String
   imagePath              String
   description            String
@@ -26,12 +27,21 @@ model Product {
   downloadVerifications  DownloadVerification[]
 }
 
+model Cart {
+  id        String  @id @default(uuid())
+  product   Product @relation(fields: [productId], references: [id], onDelete: Restrict)
+  productId String
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  quantity  Int     @default(0) // Added quantity field
+}
 model User {
   id        String   @id @default(uuid())
   email     String   @unique
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   orders    Order[]
+  carts     Cart[]
 }
 
 model Order {

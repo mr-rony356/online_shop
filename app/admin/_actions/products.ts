@@ -29,11 +29,10 @@ export async function addProduct(prevState: unknown, formData: FormData) {
   const data = result.data;
   // Upload image to Cloudinary and get the secure URL
   const imagePath = await uploadImageToCloudinary(data.image);
-console.log(imagePath)
   await db.product.create({
     data: {
       isAvailableForPurchase: false,
-      name: data.description,
+      name: data.name,
       description: data.description,
       priceInCents: data.priceInCents,
       filePath: `${data.file}`, // Assuming filePath remains as it is
@@ -114,7 +113,68 @@ export async function deleteProduct(id: string) {
   if (product == null) return notFound();
 
 }
+// Create a new user
+export async function createUser(email: string) {
+  try {
+    const newUser = await db.user.create({
+      data: {
+        id: crypto.randomUUID(),
+        email,
+      },
+    });
+    console.log(`New user created with ID: ${newUser.id}`);
+  } catch (error) {
+    console.error("Error creating user:", error);
+  }
+}
 
+// Add a product to the user's cart
+// Add a product to the user's cart
+export async function addToCart(userId: string, productId: string) {
+  try {
+    // Check if the user exists
+    const userExists = await db.user.findUnique({ where: { id: userId } });
+    if (!userExists) {
+      throw new Error(`User with id ${userId} does not exist.`);
+    }
+
+    // Check if the product is already in the cart
+    const existingCartEntry = await db.cart.findFirst({
+      where: {
+        userId,
+        productId,
+      },
+    });
+
+    if (existingCartEntry) {
+      // If the product is already in the cart, increment the quantity
+      await db.cart.update({
+        where: {
+          id: existingCartEntry.id,
+        },
+        data: {
+          quantity: {
+            increment: 1,
+          },
+        },
+      });
+      console.log(`Quantity updated for product ${productId} in cart for user ${userId}`);
+    } else {
+      // If the product is not in the cart, create a new entry
+      await db.cart.create({
+        data: {
+          id: crypto.randomUUID(),
+          productId,
+          userId,
+          quantity: 1, // Set initial quantity to 1
+        },
+      });
+      console.log(`Product with ID ${productId} added to cart for user ${userId}`);
+    }
+  } catch (error) {
+    console.error("Failed to add to cart:", error);
+  }
+}
 async function uploadImageToCloudinary(imageFile: File): Promise<string> {
   const formData = new FormData();
   formData.append("file", imageFile);
@@ -128,6 +188,52 @@ async function uploadImageToCloudinary(imageFile: File): Promise<string> {
   } catch (error) {
     console.error("Error uploading image to Cloudinary:", error);
     throw error;
+  }
+}
+// Decrease a product quantity in the user's cart
+export async function removeFromCart(userId: string, productId: string) {
+  try {
+    // Check if the user exists
+    const userExists = await db.user.findUnique({ where: { id: userId } });
+    if (!userExists) {
+      throw new Error(`User with id ${userId} does not exist.`);
+    }
+
+    // Check if the product is in the cart
+    const cartEntry = await db.cart.findFirst({
+      where: {
+        userId,
+        productId,
+      },
+    });
+
+    if (cartEntry && cartEntry.quantity > 1) {
+      // If the product is in the cart and quantity is greater than 1, decrement the quantity
+      await db.cart.update({
+        where: {
+          id: cartEntry.id,
+        },
+        data: {
+          quantity: {
+            decrement: 1,
+          },
+        },
+      });
+      console.log(`Quantity decreased for product ${productId} in cart for user ${userId}`);
+    } else if (cartEntry) {
+      // If the quantity is 1, remove the product from the cart
+      await db.cart.delete({
+        where: {
+          id: cartEntry.id,
+        },
+      });
+      console.log(`Product with ID ${productId} removed from cart for user ${userId}`);
+    } else {
+      // If the product is not in the cart, log an error or handle accordingly
+      console.error(`Product with ID ${productId} is not in the cart for user ${userId}`);
+    }
+  } catch (error) {
+    console.error("Failed to remove from cart:", error);
   }
 }
 

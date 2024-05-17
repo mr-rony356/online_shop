@@ -2,12 +2,12 @@ import SpecialProductCarousel from "./components/SpecialProducts";
 import PageHeader from "../../components/ui/PageHeader";
 import CategoryCard from "./components/CategoryCard";
 import ProductsGrid from './products/_components/ProductsGrid';
-import { getPopularProducts, getNewetProducts } from "@/lib/product";
 import { Suspense } from "react";
+import { getMostPopularProducts, getNewestProducts } from "@/lib/product";
 
 export default async function Home() {
-  const popularProducts = await getPopularProducts();
-  const newestProducts = await getNewetProducts();
+  const popularProducts = await getMostPopularProducts();
+  const newestProducts = await getNewestProducts();
 
   return (
     <main className="flex flex-col gap-16 ">
@@ -31,7 +31,8 @@ export default async function Home() {
       </Suspense>
     </main>
   );
-}const SkeletonProductsGrid = () => {
+}
+const SkeletonProductsGrid = () => {
   return (
     <div>
       <div className="flex gap-4 items-center ">

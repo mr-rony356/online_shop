@@ -7,14 +7,20 @@ import Logo from "../../../components/ui/Logo";
 import { Button } from "../../../components/ui/button";
 import { FaClipboardList, FaCog } from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
+import { Prisma } from "@prisma/client";
 
-const Header: React.FC = () => {
+interface HeaderProps {
+  cartQuantity: number;
+}
+
+const Header = async ({ cartQuantity }: HeaderProps) => {
   const [showProfileDropdown, setShowProfileDropdown] =
     useState<boolean>(false);
   const [showSearch, setShowSearch] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
 
+console.log('cartItems', cartQuantity)
   const toggleProfileDropdown = () => {
     setShowProfileDropdown(!showProfileDropdown);
   };
@@ -77,7 +83,19 @@ const Header: React.FC = () => {
 
       <div className="flex items-center space-x-4">
         <NavIconLinks icon={<FiHeart className="text-2xl" />} url="#" />
-        <NavIconLinks icon={<FiShoppingCart className="text-2xl" />} url="#" />
+        <NavIconLinks
+          icon={
+            <div className="relative">
+              <FiShoppingCart className="text-2xl" />
+              {cartQuantity > 0 && (
+                <span className="absolute -top-3 -right-3 bg-red-500 text-white rounded-full px-[6px] py-0 text-sm">
+                  {cartQuantity}
+                </span>
+              )}
+            </div>
+          }
+          url="carts"
+        />{" "}
         <div className="relative" ref={dropdownRef}>
           <button
             onClick={toggleProfileDropdown}
