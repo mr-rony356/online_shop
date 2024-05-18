@@ -7,13 +7,12 @@ import Logo from "../../../components/ui/Logo";
 import { Button } from "../../../components/ui/button";
 import { FaClipboardList, FaCog } from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
-import { Prisma } from "@prisma/client";
 
 interface HeaderProps {
   cartQuantity: number;
 }
 
-const Header = async ({ cartQuantity }: HeaderProps) => {
+const Header =  ({ cartQuantity }: HeaderProps) => {
   const [showProfileDropdown, setShowProfileDropdown] =
     useState<boolean>(false);
   const [showSearch, setShowSearch] = useState<boolean>(false);

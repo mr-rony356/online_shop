@@ -3,8 +3,6 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Header from "@/app/(userInterface)/components/Header";
-import db from "@/db/db";
-import { Prisma } from '@prisma/client';
 import { getCartQuanity } from "@/lib/product";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });

@@ -3,17 +3,8 @@ import { getCartProducts } from "@/lib/product";
 import React from "react";
 import Image from "next/image";
 import { AddToCartIcon, RemoveCartButton } from "../products/_components/ProductActions";
-interface CartProduct {
-  id: string;
-  name: string;
-  description: string; // Add this line if the description is included in the query
-  priceInCents: number;
-  imagePath: string;
-  quantity: number;
-}
 const CartPage = async () => {
   const cartProducts = await getCartProducts("1");
-console.log(cartProducts)
   return (
     <div>
       <PageHeader title="Your Cart" />
@@ -34,8 +25,8 @@ console.log(cartProducts)
                   <Image
                     src={cartItem.product.imagePath}
                     alt="Product Image"
-                    className="w-16 h-16 object-cover rounded"
-                    width={64}
+                    className="rounded"
+                    width={68}
                     height={64}
                   />
                   <div>

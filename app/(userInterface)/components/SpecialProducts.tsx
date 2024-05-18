@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import React, { useState, useEffect } from "react";
 import Nike from "/nike.png";
+import Link from "next/link";
 
 interface Slide {
   id: number;
@@ -84,7 +85,9 @@ const SpecialProductCarousel = () => {
                   {slide.description}
                 </p>
                 <Button className="p-6 text-lg !mt-5">
-                  Shop Now
+                  <Link href='/products'>
+                    Shop Now
+                  </Link>
                 </Button>
               </div>
               <div className="flex-1">
