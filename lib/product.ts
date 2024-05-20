@@ -19,6 +19,12 @@ export const getCartProducts =cache(  async (userId: string) => {
   return await db.cart.findMany({
     where: {
       userId,
+      
+    },
+    orderBy: {
+      product: {
+        name: "asc",
+      },
     },
     include: {
       product: true, // This will include the associated Product data
@@ -29,19 +35,3 @@ export const getCartProducts =cache(  async (userId: string) => {
 {
   revalidate:false,
 })
-export const getCartQuantity = cache(
-  async (userId: string) => {
-    const totalQuantity = await db.cart.aggregate({
-      where: {
-        userId,
-      },
-      _sum: {
-        quantity: true,
-      },
-    });
-
-    return totalQuantity._sum.quantity || 0;
-  },
-  ["/", "/carts", "/products","getCartQuantity"],
-  { revalidate: false }  // Disable caching for this function
-);

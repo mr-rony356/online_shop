@@ -255,3 +255,18 @@ async function deleteImageFromCloudinary(imagePath: string) {
   // You need to replace this with the actual Cloudinary API call
   // Example: axios.delete("https://api.cloudinary.com/v1_1/dpgvsl8ap/image/delete", {params: {url: imagePath}});
 }
+export const getCartQuantity = 
+  async (userId: string) => {
+    const totalQuantity = await db.cart.aggregate({
+      where: {
+        userId,
+      },
+      _sum: {
+        quantity: true,
+      },
+    });
+revalidatePath("/carts");
+revalidatePath("/products");
+revalidatePath("/");
+    return totalQuantity._sum.quantity || 0;
+  }

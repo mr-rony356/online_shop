@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Header from "@/app/(userInterface)/components/Header";
-import { getCartQuantity } from "@/lib/product";
+import { getCartQuantity } from "../admin/_actions/products";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -19,6 +19,7 @@ export default async function RootLayout({
 }) {
   // Use Prisma's types to define the cart variable
   const cartQuantity = await getCartQuantity('1');
+  console.log('cartQuantity', cartQuantity)
     return (
     <html lang="en">
       <body
