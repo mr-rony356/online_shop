@@ -104,14 +104,13 @@ export async function toggleProductAvailability(
   await db.product.update({ where: { id }, data: { isAvailableForPurchase } });
 
   revalidatePath("/");
-  revalidatePath("/products");
+  revalidatePath("/admin/products");
 }
 
 export async function deleteProduct(id: string) {
   const product = await db.product.delete({ where: { id } });
 
   if (product == null) return notFound();
-
 }
 // Create a new user
 export async function createUser(email: string) {
@@ -158,7 +157,9 @@ export async function addToCart(userId: string, productId: string) {
           },
         },
       });
-      console.log(`Quantity updated for product ${productId} in cart for user ${userId}`);
+      console.log(
+        `Quantity updated for product ${productId} in cart for user ${userId}`
+      );
     } else {
       // If the product is not in the cart, create a new entry
       await db.cart.create({
@@ -169,11 +170,16 @@ export async function addToCart(userId: string, productId: string) {
           quantity: 1, // Set initial quantity to 1
         },
       });
-      console.log(`Product with ID ${productId} added to cart for user ${userId}`);
+      console.log(
+        `Product with ID ${productId} added to cart for user ${userId}`
+      );
     }
   } catch (error) {
     console.error("Failed to add to cart:", error);
   }
+  revalidatePath("/carts");
+  revalidatePath("/produts");
+  redirect("/carts");
 }
 async function uploadImageToCloudinary(imageFile: File): Promise<string> {
   const formData = new FormData();
@@ -219,7 +225,9 @@ export async function removeFromCart(userId: string, productId: string) {
           },
         },
       });
-      console.log(`Quantity decreased for product ${productId} in cart for user ${userId}`);
+      console.log(
+        `Quantity decreased for product ${productId} in cart for user ${userId}`
+      );
     } else if (cartEntry) {
       // If the quantity is 1, remove the product from the cart
       await db.cart.delete({
@@ -227,14 +235,19 @@ export async function removeFromCart(userId: string, productId: string) {
           id: cartEntry.id,
         },
       });
-      console.log(`Product with ID ${productId} removed from cart for user ${userId}`);
+      console.log(
+        `Product with ID ${productId} removed from cart for user ${userId}`
+      );
     } else {
       // If the product is not in the cart, log an error or handle accordingly
-      console.error(`Product with ID ${productId} is not in the cart for user ${userId}`);
+      console.error(
+        `Product with ID ${productId} is not in the cart for user ${userId}`
+      );
     }
   } catch (error) {
     console.error("Failed to remove from cart:", error);
   }
+  revalidatePath("/carts");
 }
 
 async function deleteImageFromCloudinary(imagePath: string) {

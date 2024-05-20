@@ -1,6 +1,5 @@
 import db from "@/db/db";
 import { cache } from "./cache";
-import { revalidatePath } from "next/cache";
 
 export const getMostPopularProducts = async () => {
   return await db.product.findMany({
@@ -16,7 +15,7 @@ export const getNewestProducts = async () => {
     take: 6,
   });
 };
-export const getCartProducts = async (userId: string) => {
+export const getCartProducts =cache(  async (userId: string) => {
   return await db.cart.findMany({
     where: {
       userId,
@@ -25,7 +24,11 @@ export const getCartProducts = async (userId: string) => {
       product: true, // This will include the associated Product data
     },
   });
-};
+},
+["/cart", "getCartQuantity"],
+{
+  revalidate: 60,
+})
 export const getCartQuantity = cache(
   async (userId: string) => {
     const totalQuantity = await db.cart.aggregate({
