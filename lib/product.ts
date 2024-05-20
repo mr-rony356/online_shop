@@ -27,7 +27,7 @@ export const getCartProducts =cache(  async (userId: string) => {
 },
 ["/carts", "getCartProducts"],
 {
-  revalidate: 60,
+  revalidate:false,
 })
 export const getCartQuantity = cache(
   async (userId: string) => {
@@ -42,6 +42,6 @@ export const getCartQuantity = cache(
 
     return totalQuantity._sum.quantity || 0;
   },
-  ["/", "/carts", "getCartQuantity"],
+  ["/", "/carts", "/products","getCartQuantity"],
   { revalidate: false }  // Disable caching for this function
 );
