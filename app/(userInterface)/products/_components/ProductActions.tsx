@@ -7,43 +7,63 @@ import { addToCart, removeFromCart } from "@/app/admin/_actions/products";
 export function AddToCartButton({ id }: { id: string }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+
+  const handleClick = () => {
+    startTransition(async () => {
+      await addToCart("1", id);
+      router.refresh();
+    });
+  };
+
   return (
-    <Button
-      onClick={() => {
-        startTransition(async () => {
-         addToCart("1", id);
-          router.refresh();
-        });
-      }}
-    >
+    <Button onClick={handleClick} disabled={isPending}>
       {isPending ? "Adding..." : "Add to Cart"}
     </Button>
   );
 }
+
 export function AddToCartIcon({ id }: { id: string }) {
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
+
+  const handleClick = () => {
+    startTransition(async () => {
+      await addToCart("1", id);
+      router.refresh();
+    });
+  };
+
   return (
-    <span
-      onClick={() => {
-         addToCart("1", id);
-          router.refresh();
-      }}
+    <button
+      onClick={handleClick}
+      disabled={isPending}
+      className="px-2 py-1 text-gray-500 hover:bg-gray-100 rounded"
+      aria-label="Add to cart"
     >
-      +{" "}
-    </span>
+      {isPending ? "..." : "+"}
+    </button>
   );
 }
-export function RemoveCartButton({ id }: { id: string }) {
+
+export function RemoveFromCartButton({ id }: { id: string }) {
   const router = useRouter();
+  const [isPending, startTransition] = useTransition();
+
+  const handleClick = () => {
+    startTransition(async () => {
+      await removeFromCart("1", id);
+      router.refresh();
+    });
+  };
+
   return (
-    <span
-      onClick={() => {
-        removeFromCart("1", id);
-        router.refresh();
-      }}
+    <button
+      onClick={handleClick}
+      disabled={isPending}
+      className="px-2 py-1 text-gray-500 hover:bg-gray-100 rounded"
+      aria-label="Remove from cart"
     >
-      - 
-    </span>
+      {isPending ? "..." : "-"}
+    </button>
   );
 }
