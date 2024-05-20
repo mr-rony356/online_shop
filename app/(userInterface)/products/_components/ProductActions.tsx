@@ -11,7 +11,7 @@ export function AddToCartButton({ id }: { id: string }) {
     <Button
       onClick={() => {
         startTransition(async () => {
-          await addToCart("1", id);
+         addToCart("1", id);
           router.refresh();
         });
       }}
@@ -26,10 +26,8 @@ export function AddToCartIcon({ id }: { id: string }) {
   return (
     <span
       onClick={() => {
-        startTransition(async () => {
-          await addToCart("1", id);
+         addToCart("1", id);
           router.refresh();
-        });
       }}
     >
       +{" "}

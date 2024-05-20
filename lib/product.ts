@@ -26,15 +26,19 @@ export const getCartProducts = async (userId: string) => {
     },
   });
 };
-export const getCartQuanity = async (userId: string) => {
-  const totalQuantity = await db.cart.aggregate({
-    where: {
-      userId,
-    },
-    _sum: {
-      quantity: true,
-    },
-  });
+export const getCartQuantity = cache(
+  async (userId: string) => {
+    const totalQuantity = await db.cart.aggregate({
+      where: {
+        userId,
+      },
+      _sum: {
+        quantity: true,
+      },
+    });
 
-  return totalQuantity._sum.quantity || 0;
-};
+    return totalQuantity._sum.quantity || 0;
+  },
+  ["/", "getCartQuantity"],
+  { revalidate: false }  // Disable caching for this function
+);
