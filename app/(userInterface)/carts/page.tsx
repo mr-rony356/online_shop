@@ -8,7 +8,7 @@ import {
 } from "../products/_components/ProductActions";
 
 const CartPage = async () => {
-  const cartProducts = await getCartProducts("1");
+  const cartProducts = await getCartProducts("666c8e87a4f6915aa99e7cb5");
   return (
     <div>
       <PageHeader title="Your Cart" />
@@ -49,12 +49,12 @@ const CartPage = async () => {
                     <RemoveFromCartButton
                       id={cartItem.product.id}
                     ></RemoveFromCartButton>
-                    <span className=" md:px-4 text-center w-6 md:w-8">
+                    <span className=" md:pl-3 text-left w-6 md:w-8">
                       {cartItem.quantity}
                     </span>
                     <AddToCartIcon id={cartItem.product.id}></AddToCartIcon>
                   </div>
-                  <p className="font-semibold w-20 text-right text-sm">
+                  <p className="font-bold w-20 text-right text-sm">
                     ${" "}
                     {(
                       (cartItem.product.priceInCents / 100) *

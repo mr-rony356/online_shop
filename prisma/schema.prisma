@@ -8,12 +8,12 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
 }
 
 model Product {
-  id                     String                 @id @default(uuid())
+  id                     String                 @id @default(auto()) @map("_id") @db.ObjectId
   name                   String
   priceInCents           Int
   carts                  Cart[]
@@ -28,38 +28,39 @@ model Product {
 }
 
 model Cart {
-  id        String  @id @default(uuid())
+  id        String  @id @default(auto()) @map("_id") @db.ObjectId
   product   Product @relation(fields: [productId], references: [id], onDelete: Restrict)
-  productId String
-  userId    String
+  productId String @db.ObjectId
+  userId    String @db.ObjectId
   user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   quantity  Int     @default(0) // Added quantity field
 }
+
 model User {
-  id        String   @id @default(uuid())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   email     String   @unique
-  createdAt DateTime @default(now())
+  createdAt  DateTime @default(now())
   updatedAt DateTime @updatedAt
   orders    Order[]
   carts     Cart[]
 }
 
 model Order {
-  id               String   @id @default(uuid())
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
   pricePaidInCents Int
   createdAt        DateTime @default(now())
   updatedAt        DateTime @updatedAt
 
-  userId    String
-  productId String
+  userId    String @db.ObjectId
+  productId String @db.ObjectId
   user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
   product   Product @relation(fields: [productId], references: [id], onDelete: Restrict)
 }
 
 model DownloadVerification {
-  id        String   @id @default(uuid())
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
   expiresAt DateTime
   createdAt DateTime @default(now())
-  productId String
+  productId String @db.ObjectId
   product   Product  @relation(fields: [productId], references: [id], onDelete: Cascade)
 }

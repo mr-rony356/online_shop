@@ -4,6 +4,7 @@ import { formatCurrency } from "@/lib/formatters";
 import Image from "next/image";
 import React from "react";
 import { AddToCartButton } from "./_components/ProductActions";
+// import { createUser } from "@/app/admin/_actions/products";
 
 const ProductPage = async () => {
   const products = await db.product.findMany({
@@ -11,14 +12,15 @@ const ProductPage = async () => {
     orderBy: { orders: { _count: "asc" } },
   });
 
-  const cart =await db.cart.findMany({
-    where: {
-       userId: '1',
-     }
-   });
-   const user=await db.user.findMany({
-  });
-  // console.log('user',user)
+  // const cart =await db.cart.findMany({
+  //   where: {
+  //      userId: '666c8e87a4f6915aa99e7cb5',
+  //    }
+  //  });
+  //  const user=await db.user.findMany({
+  // });
+  // // console.log('user',user)
+  // createUser('rony@gmail.com');
   return (
     <>
       <div className="flex justify-between items-center">

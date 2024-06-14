@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { cn } from "@/lib/utils";
 import Header from "@/app/(userInterface)/components/Header";
-import { getCartQuantity } from "../admin/_actions/products";
+import { createUser, getCartQuantity } from "../admin/_actions/products";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -17,10 +17,8 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Use Prisma's types to define the cart variable
-  const cartQuantity = await getCartQuantity('1');
-  console.log('cartQuantity', cartQuantity)
-    return (
+  const cartQuantity = await getCartQuantity('666c8e87a4f6915aa99e7cb5');
+  return (
     <html lang="en">
       <body
         className={cn(
@@ -29,7 +27,7 @@ export default async function RootLayout({
         )}
       >
         <Header cartQuantity={cartQuantity} />
-                <main className="my-10" >{children}</main>
+        <main className="my-10">{children}</main>
       </body>
     </html>
   );

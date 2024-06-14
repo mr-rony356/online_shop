@@ -117,7 +117,6 @@ export async function createUser(email: string) {
   try {
     const newUser = await db.user.create({
       data: {
-        id: crypto.randomUUID(),
         email,
       },
     });
@@ -164,7 +163,6 @@ export async function addToCart(userId: string, productId: string) {
       // If the product is not in the cart, create a new entry
       await db.cart.create({
         data: {
-          id: crypto.randomUUID(),
           productId,
           userId,
           quantity: 1, // Set initial quantity to 1
@@ -256,7 +254,7 @@ async function deleteImageFromCloudinary(imagePath: string) {
   // Example: axios.delete("https://api.cloudinary.com/v1_1/dpgvsl8ap/image/delete", {params: {url: imagePath}});
 }
 export const getCartQuantity = 
-  async (userId: string) => {
+  async (userId: string ) => {
     const totalQuantity = await db.cart.aggregate({
       where: {
         userId,

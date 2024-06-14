@@ -10,7 +10,7 @@ export function AddToCartButton({ id }: { id: string }) {
 
   const handleClick = () => {
     startTransition(async () => {
-      await addToCart("1", id);
+      await addToCart("666c8e87a4f6915aa99e7cb5", id);
       router.refresh();
     });
   };
@@ -28,7 +28,7 @@ export function AddToCartIcon({ id }: { id: string }) {
 
   const handleClick = () => {
     startTransition(async () => {
-      await addToCart("1", id);
+      await addToCart("666c8e87a4f6915aa99e7cb5", id);
       router.refresh();
     });
   };
@@ -51,7 +51,7 @@ export function RemoveFromCartButton({ id }: { id: string }) {
 
   const handleClick = () => {
     startTransition(async () => {
-      await removeFromCart("1", id);
+      await removeFromCart("666c8e87a4f6915aa99e7cb5", id);
       router.refresh();
     });
   };
